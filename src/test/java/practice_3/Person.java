@@ -41,7 +41,7 @@ public class Person {
         p1.printPersonInfo();
         Person p2 = new Person("Vova","Pushkin","123-45-6789");
         p2.printPersonInfo();
-        p1.firstName = "Nikita";
+        p1.setFirstName("Nikita");
         p1.printPersonInfo();
         p2.printPersonInfo();
 

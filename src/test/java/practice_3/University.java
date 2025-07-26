@@ -9,8 +9,8 @@ public class University {
         this.studentID = studentID;
         this.studentName = studentName;
     }
-    static String   changeUniversityName(String newName) {
-          return University.universityName = newName;
+    static void   changeUniversityName(String newName) {
+         University.universityName = newName;
     }
 
     public String getStudentName() {

@@ -9,8 +9,8 @@ public class GameSettings {
         this.gameName = gameName;
         this.currentPlayers = currentPlayers;
     }
-    static int setMaxPlayers(int max){
-        return  maxPlayers = max;
+    static void  setMaxPlayers(int max){
+         maxPlayers = max;
     }
      void  addPlayer(){
         if (currentPlayers<maxPlayers){
@@ -18,8 +18,6 @@ public class GameSettings {
         }
         else {
             System.out.println("Кол-во игроков превышено");
-            //можно просто сделать return
-            //можно throw new IllegalArguments("Кол-во игроков превышено") и потом в try catch проверить
         }
     }
     void  printGameStatus ()
