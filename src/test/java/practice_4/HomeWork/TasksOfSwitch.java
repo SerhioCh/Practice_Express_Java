@@ -125,6 +125,8 @@ public class TasksOfSwitch {
                 System.out.println("Умножение: "+ multiply);
                 break;
                 case '/':
+                    if (b==0){
+                        System.out.println("На ноль делить нельзя");}
                 int division = a/b;
                 System.out.println("Деление: "+ division);
                 break;

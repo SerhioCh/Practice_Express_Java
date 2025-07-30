@@ -34,10 +34,11 @@ public class TasksOfWhile {
         System.out.println("Введите число");
         int number = scanner.nextInt();
         int i = 1;
-        while (i<number){     // Если число отрицательное тогда сразу сработает false и нет смысла писать дополнительную проверку, метод завершится , а так можно
+        while (number>=1){     // Если число отрицательное тогда сразу сработает false и нет смысла писать дополнительную проверку, метод завершится , а так можно
             //написать  if до цикла
-            number--;
             System.out.println(number);
+            number--;
+
         }
     }
 
@@ -46,7 +47,7 @@ public class TasksOfWhile {
     public static void main(String[] args) {
         //   factorialOfNumber(); //Задача 1
         //    evenNumbersForUserNumber();  // Задача 2
-        //    countDownForUserNumber();   // Задача 3
+        // countDownForUserNumber();   // Задача 3
 
     }
 }
