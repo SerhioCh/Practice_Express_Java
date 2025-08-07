@@ -7,8 +7,8 @@ public class TaskOfPriorityQueue {
 
     public  void printOrderDeleting(){
         while (!numbers.isEmpty()){
-            numbers.poll();
-            System.out.println("Порядок удаления: " + numbers);
+           Integer removedValue = numbers.poll();
+            System.out.println("Удалено значение: " + removedValue);
         }
     }
 

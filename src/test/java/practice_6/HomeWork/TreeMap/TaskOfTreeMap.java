@@ -13,11 +13,13 @@ public class TaskOfTreeMap {
        System.out.println("Выведен максимальный  ключ: "+maxKey);
    }
    public  void searchMaxKey (int key){
-       if (person.higherKey(key)==null){
+       Integer higherKEy = person.higherKey(key);
+       if (higherKEy==null){
            System.out.println("Выше значения нет");
        }
-       System.out.println(person.higherKey(key));
-
+       else {
+           System.out.println(higherKEy);
+       }
 
    }
 
