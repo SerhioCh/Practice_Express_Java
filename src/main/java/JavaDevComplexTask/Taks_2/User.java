@@ -1,4 +1,4 @@
-package Taks_2;
+package JavaDevComplexTask.Taks_2;
 
 import java.util.Objects;
 

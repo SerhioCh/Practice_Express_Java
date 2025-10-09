@@ -1,4 +1,4 @@
-package Task_4;
+package JavaDevComplexTask.Task_4;
 
 import java.util.*;
 import java.util.stream.Collectors;

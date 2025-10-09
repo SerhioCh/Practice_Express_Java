@@ -1,4 +1,4 @@
-package Task_1;
+package JavaDevComplexTask.Task_1;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

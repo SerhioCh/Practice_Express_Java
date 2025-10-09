@@ -1,0 +1,8 @@
+package CleanCode.practice_2.homework.fabric.Task1;
+
+public class Car implements Transport{
+    @Override
+    public void shipping() {
+        System.out.println("Доставка на машине");
+    }
+}

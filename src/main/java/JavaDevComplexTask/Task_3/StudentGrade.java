@@ -1,4 +1,4 @@
-package Task_3;
+package JavaDevComplexTask.Task_3;
 
 public class StudentGrade <T extends Number>  {
     private  String name;

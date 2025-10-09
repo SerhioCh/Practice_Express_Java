@@ -1,4 +1,4 @@
-package Task_5;
+package JavaDevComplexTask.Task_5;
 
 public class OutOfStockException extends Exception{
     public OutOfStockException(String message) {

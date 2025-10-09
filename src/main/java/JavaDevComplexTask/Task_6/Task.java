@@ -1,7 +1,6 @@
-package Task_6;
+package JavaDevComplexTask.Task_6;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 public class Task <T extends Number>  {

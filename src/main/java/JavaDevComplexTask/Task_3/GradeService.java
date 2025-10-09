@@ -1,9 +1,7 @@
-package Task_3;
+package JavaDevComplexTask.Task_3;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.OptionalDouble;
 
 public class GradeService <T extends  Number>{
     List<StudentGrade<T>> grades = new ArrayList<>();
