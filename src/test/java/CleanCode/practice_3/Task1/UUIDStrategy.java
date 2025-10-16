@@ -1,8 +1,10 @@
 package CleanCode.practice_3.Task1;
 
+import java.util.UUID;
+
 public class UUIDStrategy implements ShorteningStrategy{
     @Override
-    public void convert(String longUrl) {
-        System.out.println(longUrl+" Конвертирован в UUID");
+    public String convert(String longUrl) {
+        return UUID.randomUUID().toString().substring(0,8);
     }
 }

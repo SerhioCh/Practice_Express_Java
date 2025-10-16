@@ -20,6 +20,7 @@ public class InMemoryStorage implements UrlStorage{
         this.longUrl = longUrl;
     }
 
+
     @Override
     public String getShortUrl() {
         return shortUrl;
