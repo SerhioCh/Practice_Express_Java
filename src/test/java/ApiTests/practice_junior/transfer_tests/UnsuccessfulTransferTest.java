@@ -16,6 +16,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -53,6 +54,20 @@ public class UnsuccessfulTransferTest {
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body(Matchers.equalTo("Transfer amount must be at least 0.01"));
 
+        List<Map<String,Object>> transactions = given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .header("Authorization", accountInfo.token)
+                .pathParams("accountId", accountInfo1.accountId)
+                .when()
+                .get("http://localhost:4111/api/v1/accounts/{accountId}/transactions")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .as(List.class);
+
+        assert transactions.isEmpty();
+
     }
 
     @ValueSource(strings = {"10000.1", "500000"})
@@ -81,6 +96,20 @@ public class UnsuccessfulTransferTest {
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body(Matchers.equalTo("Transfer amount cannot exceed 10000"));
 
+        List<Map<String,Object>> transactions = given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .header("Authorization", accountInfo.token)
+                .pathParams("accountId", accountInfo1.accountId)
+                .when()
+                .get("http://localhost:4111/api/v1/accounts/{accountId}/transactions")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .as(List.class);
+
+        assert transactions.isEmpty();
+
     }
 
     @Test
@@ -107,6 +136,20 @@ public class UnsuccessfulTransferTest {
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body(Matchers.equalTo("Invalid transfer: insufficient funds or invalid accounts"));
+
+        List<Map<String,Object>> transactions = given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .header("Authorization", accountInfo.token)
+                .pathParams("accountId", accountInfo1.accountId)
+                .when()
+                .get("http://localhost:4111/api/v1/accounts/{accountId}/transactions")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .as(List.class);
+
+        assert transactions.isEmpty();
 
     }
 
