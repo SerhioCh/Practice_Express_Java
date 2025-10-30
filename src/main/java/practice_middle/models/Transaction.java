@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Transaction {
+public class Transaction extends  BaseModel {
     private long id;
     private BigDecimal amount;
     private String  type;
