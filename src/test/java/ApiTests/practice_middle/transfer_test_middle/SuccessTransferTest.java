@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class SuccessTransferTest extends BaseTest {
-    @ValueSource(strings = {"0.01", "10000"})
+    @ValueSource(strings = {"0.01","9999.99","10000"})
     @ParameterizedTest
     public void successTransferForYourAccount(String amount) {
         String username = TestUserManager.getUsername();
