@@ -1,18 +1,16 @@
 package ApiTests.practice_junior.rename_tests;
 
-import ApiTests.practice_junior.helpers.AccountInfo;
-import ApiTests.practice_junior.helpers.CreateNewAccount;
 import ApiTests.practice_junior.helpers.CreateNewUserToken;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import static   org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
@@ -34,7 +32,7 @@ public class SuccessfulRename {
                   "name": "%s"
                 }
                 """, name);
-        given()
+        String actualName = given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .header("Authorization", token)
@@ -43,7 +41,23 @@ public class SuccessfulRename {
                 .put("http://localhost:4111/api/v1/customer/profile")
                 .then()
                 .body("customer.name", Matchers.equalTo(name))
-                .body("message", Matchers.equalTo("Profile updated successfully"));
+                .body("message", Matchers.equalTo("Profile updated successfully"))
+                .extract()
+                .path("customer.name");
+
+
+        String usernameProfile = given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .header("Authorization", token)
+                .when()
+                .get("http://localhost:4111/api/v1/customer/profile")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .path("name");
+
+        assertEquals(usernameProfile,actualName);
 
     }
 

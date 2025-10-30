@@ -16,6 +16,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static io.restassured.RestAssured.given;
@@ -59,7 +60,22 @@ public class SuccessfulDepositTest {
                         .path("balance").toString()
         );
 
+   List<Map<String,Object>> transactions = given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .header("Authorization", token)
+                .pathParams("accountId", accountId)
+                .when()
+                .get("http://localhost:4111/api/v1/accounts/{accountId}/transactions")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .as(List.class);
+        Number amountNumber = (Number) transactions.get(0).get("amount");
+        BigDecimal amountDeposit = BigDecimal.valueOf(amountNumber.doubleValue());
+
         assert expected.compareTo(actualBalance) == 0;
+        assert actualBalance.compareTo(amountDeposit) == 0;
     }
 
 }

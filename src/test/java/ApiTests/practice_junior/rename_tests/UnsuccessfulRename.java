@@ -10,6 +10,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import static   org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -42,6 +43,19 @@ public class UnsuccessfulRename {
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body(Matchers.equalTo("Name must contain two words with letters only"));
+
+        String usernameProfile = given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .header("Authorization", token)
+                .when()
+                .get("http://localhost:4111/api/v1/customer/profile")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .path("name");
+
+        assertNull(usernameProfile);
 
     }
 

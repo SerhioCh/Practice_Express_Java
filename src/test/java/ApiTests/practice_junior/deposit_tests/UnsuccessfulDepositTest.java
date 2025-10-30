@@ -13,6 +13,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -50,6 +51,20 @@ public class UnsuccessfulDepositTest {
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body(Matchers.equalTo(ERROR_MESSAGE));
+
+        List<Map<String,Object>> transactions = given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .header("Authorization", token)
+                .pathParams("accountId", accountId)
+                .when()
+                .get("http://localhost:4111/api/v1/accounts/{accountId}/transactions")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .as(List.class);
+
+        assert transactions.isEmpty();
 
 
     }
