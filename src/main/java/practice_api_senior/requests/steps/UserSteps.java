@@ -4,8 +4,7 @@ import lesson_api_middle.models_lesson.CreateAccountResponse;
 import practice_api_senior.requests.skelethon.Endpoint;
 import practice_api_senior.requests.skelethon.requesters.CrudRequester;
 import practice_api_senior.requests.skelethon.requesters.ValidatedCrudRequester;
-import practice_middle.models.AccountUserResponse;
-import practice_middle.models.AddDepositUserAccountRequest;
+import practice_middle.models.*;
 import practice_middle.requests.CreateAccountRequester;
 import practice_middle.requests.UserAddDepositRequester;
 import practice_middle.specs.RequestSpecs;
@@ -29,6 +28,23 @@ public class UserSteps {
                 .build();
         new CrudRequester(RequestSpecs.userAuthSpec(username, password),Endpoint.DEPOSIT,ResponseSpecs.requestReturnsOK())
                 .post(addDep);
+    }
+
+    public  static   Customer addNameForAccount (String name , String username, String password) {
+            UpdateCustomerProfileRequest updateCustomerProfileRequest = UpdateCustomerProfileRequest.builder()
+                    .name(name)
+                    .build();
+
+            UpdateCustomerProfileResponse updateCustomerProfileResponse = new ValidatedCrudRequester<UpdateCustomerProfileResponse>(RequestSpecs.userAuthSpec(username, password),
+                    Endpoint.UPDATE_CUSTOMER, ResponseSpecs.requestReturnsOK())
+                    .update(updateCustomerProfileRequest);
+
+            Customer customer = new ValidatedCrudRequester<Customer>(RequestSpecs.userAuthSpec(username, password),
+                    Endpoint.GET_CUSTOMER_PROFILE,
+                    ResponseSpecs.requestReturnsOK())
+                    .get();
+
+            return  customer;
     }
 
 }
