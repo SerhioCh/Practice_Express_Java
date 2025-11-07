@@ -21,4 +21,14 @@ public class RandomData {
         int value = ThreadLocalRandom.current().nextInt(1,5001);
         return  String.valueOf(value);
     }
+
+    public static String getName(){
+        return  RandomStringUtils.randomAlphabetic(3)+" "+
+                RandomStringUtils.randomAlphabetic(3);
+
+    }
+    public static String getInvalidName(){
+        return  RandomStringUtils.randomAlphabetic(3)+"!";
+
+    }
 }

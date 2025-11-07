@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class UnsuccessfullTransfer extends BaseUiTest {
     @Test
     public void transferToYourAccountWithInvalidAmount() {
-        final String ACCOUNT_NAME = "Jhon Smith";
+        final String ACCOUNT_NAME = RandomData.getName();;
         final String DEPOSIT_AMOUNT = "-1";
         CreateUserRequest user = AdminSteps.createConstantUser();
         authUser(user);
@@ -32,7 +32,7 @@ public class UnsuccessfullTransfer extends BaseUiTest {
 
     @Test
     public void transferToYourAccountWithAmountMoreTenThousand() {
-        final String ACCOUNT_NAME = "Jhon Smith";
+        final String ACCOUNT_NAME = RandomData.getName();;
         final String DEPOSIT_AMOUNT = "10001";
         CreateUserRequest user = AdminSteps.createConstantUser();
         authUser(user);
@@ -50,7 +50,7 @@ public class UnsuccessfullTransfer extends BaseUiTest {
 
     @Test
     public void invalidTransferWithEmptyFields() {
-        final String ACCOUNT_NAME = "Jhon Smith";
+        final String ACCOUNT_NAME = RandomData.getName();;
         final String DEPOSIT_AMOUNT = "5000";
         CreateUserRequest user = AdminSteps.createConstantUser();
         authUser(user);
@@ -83,7 +83,7 @@ public class UnsuccessfullTransfer extends BaseUiTest {
 
     @Test
     public void transferToInvalidAccount() {
-        final String ACCOUNT_NAME = "Jhon Smith";
+        final String ACCOUNT_NAME = RandomData.getName();
         final String DEPOSIT_AMOUNT = RandomData.getDeposit();
         CreateUserRequest user = AdminSteps.createConstantUser();
         authUser(user);
@@ -99,7 +99,7 @@ public class UnsuccessfullTransfer extends BaseUiTest {
 
     @Test
     public void transferToYourAccountWithOverdraft() {
-        final String ACCOUNT_NAME = "Jhon Smith";
+        final String ACCOUNT_NAME = RandomData.getName();
         final String DEPOSIT_AMOUNT = "6000";
         CreateUserRequest user = AdminSteps.createConstantUser();
         authUser(user);

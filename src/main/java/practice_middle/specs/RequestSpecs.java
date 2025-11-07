@@ -53,5 +53,15 @@ public class RequestSpecs {
 
     }
 
+    public  static String getUserAuthHeader(String username,String password){
+     return   new CrudRequester(RequestSpecs.unAuthUserSpec(), Endpoint.LOGIN, ResponseSpecs.requestReturnsOK())
+                .post(LoginUserRequest.builder()
+                        .username(username)
+                        .password(password)
+                        .build())
+                .extract()
+                .header("Authorization");
+    }
+
 
 }

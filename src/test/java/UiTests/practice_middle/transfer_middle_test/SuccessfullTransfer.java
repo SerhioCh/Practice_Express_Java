@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class SuccessfullTransfer extends BaseUiTest {
     @Test
     public void transferToYourAccount() {
-        final String ACCOUNT_NAME = "Jhon Smith";
+        final String ACCOUNT_NAME = RandomData.getName();
         final String DEPOSIT_AMOUNT = RandomData.getDeposit();
         CreateUserRequest user = AdminSteps.createConstantUser();
         authUser(user);
@@ -35,7 +35,7 @@ public class SuccessfullTransfer extends BaseUiTest {
 
     @Test
     public void transferToAnotherUser() {
-        final String ACCOUNT_NAME = "Jhon Smith";
+        final String ACCOUNT_NAME = RandomData.getName();
         final String DEPOSIT_AMOUNT = RandomData.getDeposit();
         CreateUserRequest user1 = AdminSteps.createConstantUser();
         CreateUserRequest user2 = AdminSteps.createTemporaryUser();

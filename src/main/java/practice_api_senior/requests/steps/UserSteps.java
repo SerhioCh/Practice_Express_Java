@@ -1,17 +1,16 @@
 package practice_api_senior.requests.steps;
 
-import lesson_api_middle.models_lesson.CreateAccountResponse;
+
 import practice_api_senior.requests.skelethon.Endpoint;
 import practice_api_senior.requests.skelethon.requesters.CrudRequester;
 import practice_api_senior.requests.skelethon.requesters.ValidatedCrudRequester;
 import practice_middle.models.*;
-import practice_middle.requests.CreateAccountRequester;
-import practice_middle.requests.UserAddDepositRequester;
+
 import practice_middle.specs.RequestSpecs;
 import practice_middle.specs.ResponseSpecs;
 
 import java.math.BigDecimal;
-import java.util.List;
+
 
 public class UserSteps {
     public static AccountUserResponse createAccountForUser(String username, String password) {
