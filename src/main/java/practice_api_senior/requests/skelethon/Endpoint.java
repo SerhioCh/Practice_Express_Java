@@ -12,6 +12,11 @@ public enum Endpoint {
             CreateUserRequest.class,
             CreateUserResponse.class
     ),
+    USER_DELETE(
+            "/admin/users/{id}",
+            BaseModel.class,
+            BaseModel.class
+    ),
     LOGIN(
             "/auth/login",
             LoginUserRequest.class,
@@ -21,14 +26,18 @@ public enum Endpoint {
             "/accounts",
             BaseModel.class,
             AccountUserResponse.class
-    )
-    ,
+    ),
+    ACCOUNTS_DELETE(
+            "/accounts/{accountId}",
+            BaseModel.class,
+            DeleteAccountResponse.class
+    ),
     TRANSFER(
             "/accounts/transfer",
             CreateTransferRequest.class,
             CreateTransferResponse.class
     ),
-    DEPOSIT (
+    DEPOSIT(
             "/accounts/deposit",
             AddDepositUserAccountRequest.class,
             AccountUserResponse.class
@@ -50,8 +59,8 @@ public enum Endpoint {
     );
 
 
-    private  final  String url;
-    private final Class <? extends BaseModel>  requestModel;
-    private final Class <? extends BaseModel>  responseModel;
+    private final String url;
+    private final Class<? extends BaseModel> requestModel;
+    private final Class<? extends BaseModel> responseModel;
 
 }
