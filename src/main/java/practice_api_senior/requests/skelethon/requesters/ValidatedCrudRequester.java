@@ -40,7 +40,7 @@ public class ValidatedCrudRequester  <T extends BaseModel> extends HttpRequest i
 
     @Override
     public Object delete(long id) {
-        return null;
+        return (T)crudRequester.delete(id).extract().as(endpoint.getResponseModel());
     }
 
 

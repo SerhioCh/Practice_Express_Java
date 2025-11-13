@@ -63,10 +63,20 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
                         .assertThat()
                         .spec(responseSpecification);
     }
-
     @Override
-    public Object delete(long id) {
-        return null;
+    public ValidatableResponse delete(long id) {
+        var request = given().given().spec(requestSpecification);
+         if (endpoint.getUrl().contains("{accountId}")) {
+             request.pathParam("accountId", id);
+         }
+         else  if (endpoint.getUrl().contains("{id}")){
+             request.pathParam("id",id);
+         }
+        return request
+                .delete(endpoint.getUrl())
+                .then()
+                .assertThat()
+                .spec(responseSpecification);
     }
 
     public <T> List<T> getList(long id, TypeRef<List<T>> typeRef) {

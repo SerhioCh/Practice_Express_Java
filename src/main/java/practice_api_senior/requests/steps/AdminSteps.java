@@ -1,13 +1,20 @@
 package practice_api_senior.requests.steps;
 
+import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import practice_api_senior.requests.skelethon.Endpoint;
 import practice_api_senior.requests.skelethon.requesters.CrudRequester;
+import practice_api_senior.requests.skelethon.requesters.ValidatedCrudRequester;
 import practice_middle.generator.RandomData;
 import practice_middle.models.CreateUserRequest;
+import practice_middle.models.CreateUserResponse;
 import practice_middle.models.UserRoles;
 import practice_middle.requests.AdminCreateUserRequester;
 import practice_middle.specs.RequestSpecs;
 import practice_middle.specs.ResponseSpecs;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class AdminSteps {
     private static CreateUserRequest constantUser;
@@ -42,6 +49,25 @@ public class AdminSteps {
                 .post(userRequest);
 
         return userRequest;
+    }
+
+    public  static Long getUserInfoId(String name){
+        List <CreateUserResponse> users = Arrays.asList( new CrudRequester(RequestSpecs.adminAuthSpec(),Endpoint.ADMIN_USER,
+        ResponseSpecs.ignoreErrors())
+                .get()
+                .extract().as(CreateUserResponse[].class));
+       return   users.stream()
+               .filter(u -> u.getUsername().equals(name))
+               .map(CreateUserResponse::getId)
+               .findFirst()
+               .orElse(null);
+    }
+
+
+    public  static void deleteUser (long userId){
+        ValidatableResponse response = new CrudRequester(RequestSpecs.adminAuthSpec(),
+                Endpoint.USER_DELETE,ResponseSpecs.requestReturnsOK())
+                .delete(userId);
     }
 }
 

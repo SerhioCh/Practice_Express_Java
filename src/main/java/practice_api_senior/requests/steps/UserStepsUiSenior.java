@@ -1,12 +1,10 @@
 package practice_api_senior.requests.steps;
 
 
-import io.restassured.response.ValidatableResponse;
 import practice_api_senior.requests.skelethon.Endpoint;
 import practice_api_senior.requests.skelethon.requesters.CrudRequester;
 import practice_api_senior.requests.skelethon.requesters.ValidatedCrudRequester;
 import practice_middle.models.*;
-
 import practice_middle.specs.RequestSpecs;
 import practice_middle.specs.ResponseSpecs;
 
@@ -16,9 +14,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class UserSteps {
+public class UserStepsUiSenior {
+        private  String username;
+        private  String password;
+    public UserStepsUiSenior(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
-    public static AccountUserResponse createAccountForUser(String username, String password) {
+    public  AccountUserResponse createAccountForUser(String username, String password) {
         return new ValidatedCrudRequester<AccountUserResponse>(
                 RequestSpecs.userAuthSpec(username, password),
                 Endpoint.ACCOUNTS,
@@ -27,7 +31,7 @@ public class UserSteps {
     }
 
 
-    public static void addDepositForAccount(long accountId, BigDecimal balance, String username, String password) {
+    public  void addDepositForAccount(long accountId, BigDecimal balance, String username, String password) {
         AddDepositUserAccountRequest addDep = AddDepositUserAccountRequest.builder()
                 .id(accountId)
                 .balance(balance)
@@ -36,7 +40,7 @@ public class UserSteps {
                 .post(addDep);
     }
 
-    public static Customer addNameForAccount(String name, String username, String password) {
+    public  Customer addNameForAccount(String name, String username, String password) {
         UpdateCustomerProfileRequest updateCustomerProfileRequest = UpdateCustomerProfileRequest.builder()
                 .name(name)
                 .build();
@@ -53,21 +57,21 @@ public class UserSteps {
         return customer;
     }
 
-    public static Transaction[] getAllTransaction(CreateUserRequest user, AccountUserResponse account) {
+    public  Transaction[] getAllTransaction(CreateUserRequest user, AccountUserResponse account) {
         return new CrudRequester(RequestSpecs.userAuthSpec(user.getUsername(), user.getPassword()),
                 Endpoint.GET_ACCOUNT_TRANSACTIONS, ResponseSpecs.requestReturnsOK())
                 .get(account.getId())
                 .extract().as(Transaction[].class);
     }
 
-    public static Customer getCustomerProfile(CreateUserRequest user) {
+    public  Customer getCustomerProfile(CreateUserRequest user) {
         return new ValidatedCrudRequester<Customer>(RequestSpecs.userAuthSpec(user.getUsername(), user.getPassword()),
                 Endpoint.GET_CUSTOMER_PROFILE,
                 ResponseSpecs.requestReturnsOK())
                 .get();
     }
 
-    public static void deleteAccounts(AccountUserResponse accountUserResponse, CreateUserRequest user) {
+    public  void deleteAccounts(CreateUserRequest user) {
         List<CreateUserResponse> users = Arrays.asList(new CrudRequester(RequestSpecs.adminAuthSpec(), Endpoint.ADMIN_USER,
                 ResponseSpecs.ignoreErrors())
                 .get()

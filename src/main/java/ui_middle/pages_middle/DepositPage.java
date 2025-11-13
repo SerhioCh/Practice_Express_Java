@@ -1,10 +1,14 @@
 package ui_middle.pages_middle;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.assertj.core.api.SoftAssertions;
 import practice_middle.models.AccountUserResponse;
+import ui_middle.pages_middle.ui_elements_senior.AcсountOption;
+
+import java.util.List;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
@@ -32,6 +36,11 @@ public class DepositPage extends BasePage<DepositPage> {
         enterAmount.setValue(amount);
         buttonDeposit.click();
         return  this;
+    }
+
+    public List<AcсountOption> getAllAccounts(){
+         ElementsCollection elementsCollection = $("select.form-control.account-selector").$$("option");
+        return generatePageElements(elementsCollection,AcсountOption::new);
     }
 
 }

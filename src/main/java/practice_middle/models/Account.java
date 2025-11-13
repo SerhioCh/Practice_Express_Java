@@ -6,18 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
+import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CreateUserResponse extends BaseModel {
+public class Account {
     private long id;
-    private String username;
-    private String password;
-    private String name;
-    private String role;
-    private List<Account> accounts;
+    private String  accountNumber;
+    private BigDecimal balance;
 }
