@@ -4,6 +4,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import common.utils.RetryUtils;
 import org.assertj.core.api.SoftAssertions;
 import practice_middle.models.AccountUserResponse;
 import ui_middle.pages_middle.ui_elements_senior.AcсountOption;
@@ -42,5 +43,15 @@ public class DepositPage extends BasePage<DepositPage> {
          ElementsCollection elementsCollection = $("select.form-control.account-selector").$$("option");
         return generatePageElements(elementsCollection,AcсountOption::new);
     }
+
+    public AcсountOption  findAccountInSelect (String accountName){
+     return RetryUtils.retry(
+                () -> getAllAccounts().stream().filter(it -> it.getLabel().contains(accountName)).findAny().orElse(null),
+                result -> result !=null,
+                3,
+                1000);
+
+    }
+
 
 }

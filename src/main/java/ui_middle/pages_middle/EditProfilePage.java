@@ -1,7 +1,12 @@
 package ui_middle.pages_middle;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
+import common.utils.RetryUtils;
+import ui_middle.pages_middle.ui_elements_senior.AcсountOption;
+
+import java.util.List;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -19,13 +24,17 @@ public class EditProfilePage extends BasePage<EditProfilePage> {
     }
 
     public EditProfilePage addName(String accountName) {
-        enterName.shouldHave(visible,enabled).setValue(accountName).shouldHave(value(accountName));
+        enterName.shouldBe(visible, enabled).clear();
+        enterName.setValue(accountName);
+        enterName.shouldHave(value(accountName));
         buttonSaveChanges.click();
         return this;
     }
 
     public EditProfilePage setName(String accountName) {
-        enterName.setValue(accountName).shouldHave(visible,enabled).shouldHave(value(accountName));
+        enterName.shouldBe(visible, enabled).clear();
+        enterName.setValue(accountName);
+        enterName.shouldHave(value(accountName));
         return this;
     }
 
@@ -34,4 +43,8 @@ public class EditProfilePage extends BasePage<EditProfilePage> {
         return this;
     }
 
+
 }
+
+
+

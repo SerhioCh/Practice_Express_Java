@@ -65,4 +65,5 @@ public abstract class BasePage<T extends BasePage> {
         return  elementsCollection.stream().map(constructor).collect(Collectors.toList());
     }
 
+
 }
