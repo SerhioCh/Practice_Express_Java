@@ -1,8 +1,8 @@
 package JavaDev.practice_13.TestTask_4;
 
-import Task_4.Movie;
-import Task_4.MovieService;
-import Task_4.Rating;
+import JavaDevComplexTask.Task_4.Movie;
+import JavaDevComplexTask.Task_4.MovieService;
+import JavaDevComplexTask.Task_4.Rating;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;

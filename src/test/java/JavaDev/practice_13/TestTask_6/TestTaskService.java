@@ -1,7 +1,7 @@
 package JavaDev.practice_13.TestTask_6;
 
-import Task_6.Task;
-import Task_6.TaskService;
+import  JavaDevComplexTask.Task_6.Task;
+import JavaDevComplexTask.Task_6.TaskService;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

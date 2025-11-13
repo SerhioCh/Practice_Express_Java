@@ -1,8 +1,8 @@
 package JavaDev.practice_13.TestTask_3;
 
-import Task_3.GradeService;
-import Task_3.InvalidGradeException;
-import Task_3.StudentGrade;
+import JavaDevComplexTask.Task_3.GradeService;
+import JavaDevComplexTask.Task_3.InvalidGradeException;
+import JavaDevComplexTask.Task_3.StudentGrade;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

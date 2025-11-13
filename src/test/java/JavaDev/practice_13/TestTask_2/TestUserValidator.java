@@ -1,8 +1,8 @@
 package JavaDev.practice_13.TestTask_2;
 
-import Taks_2.InvalidUserException;
-import Taks_2.User;
-import Taks_2.UserValidator;
+import JavaDevComplexTask.Taks_2.InvalidUserException;
+import JavaDevComplexTask.Taks_2.User;
+import JavaDevComplexTask.Taks_2.UserValidator;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

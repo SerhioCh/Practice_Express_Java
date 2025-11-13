@@ -1,8 +1,8 @@
 package JavaDev.practice_13.TestTask_5;
 
-import Task_5.InventoryService;
-import Task_5.OutOfStockException;
-import Task_5.Product;
+import JavaDevComplexTask.Task_5.InventoryService;
+import JavaDevComplexTask.Task_5.OutOfStockException;
+import JavaDevComplexTask.Task_5.Product;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
