@@ -1,6 +1,5 @@
 package practice_api_senior.requests.skelethon;
 
-import lesson_api_middle.models_lesson.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import practice_middle.models.*;

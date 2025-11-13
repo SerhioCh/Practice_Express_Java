@@ -2,6 +2,8 @@ package practice_middle.generator;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class RandomData {
     private  RandomData(){}
 
@@ -13,5 +15,20 @@ public class RandomData {
         return RandomStringUtils.randomAlphabetic(3).toUpperCase()+
                 RandomStringUtils.randomAlphabetic(5).toLowerCase()+
                 RandomStringUtils.randomNumeric(3).toLowerCase()+ "!";
+    }
+
+    public  static  String getDeposit(){
+        int value = ThreadLocalRandom.current().nextInt(1,5001);
+        return  String.valueOf(value);
+    }
+
+    public static String getName(){
+        return  RandomStringUtils.randomAlphabetic(3)+" "+
+                RandomStringUtils.randomAlphabetic(3);
+
+    }
+    public static String getInvalidName(){
+        return  RandomStringUtils.randomAlphabetic(3)+"!";
+
     }
 }

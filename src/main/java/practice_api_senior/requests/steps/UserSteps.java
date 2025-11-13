@@ -1,16 +1,16 @@
 package practice_api_senior.requests.steps;
 
-import lesson_api_middle.models_lesson.CreateAccountResponse;
+
 import practice_api_senior.requests.skelethon.Endpoint;
 import practice_api_senior.requests.skelethon.requesters.CrudRequester;
 import practice_api_senior.requests.skelethon.requesters.ValidatedCrudRequester;
 import practice_middle.models.*;
-import practice_middle.requests.CreateAccountRequester;
-import practice_middle.requests.UserAddDepositRequester;
+
 import practice_middle.specs.RequestSpecs;
 import practice_middle.specs.ResponseSpecs;
 
 import java.math.BigDecimal;
+
 
 public class UserSteps {
     public static AccountUserResponse createAccountForUser(String username, String password) {
@@ -20,6 +20,9 @@ public class UserSteps {
                 ResponseSpecs.entityWasCreated()
         ).post(null);
     }
+
+
+
 
     public static void addDepositForAccount(long accountId, BigDecimal balance, String username, String password) {
         AddDepositUserAccountRequest addDep = AddDepositUserAccountRequest.builder()
@@ -46,5 +49,19 @@ public class UserSteps {
 
             return  customer;
     }
+    public  static Transaction[] getAllTransaction(CreateUserRequest user,AccountUserResponse account){
+        return new CrudRequester(RequestSpecs.userAuthSpec(user.getUsername(), user.getPassword()),
+                Endpoint.GET_ACCOUNT_TRANSACTIONS, ResponseSpecs.requestReturnsOK())
+                .get(account.getId())
+                .extract().as(Transaction[].class);
+    }
+
+    public  static Customer getCustomerProfile (CreateUserRequest user){
+        return   new ValidatedCrudRequester<Customer>(RequestSpecs.userAuthSpec(user.getUsername(), user.getPassword()),
+                Endpoint.GET_CUSTOMER_PROFILE,
+                ResponseSpecs.requestReturnsOK())
+                .get();
+    }
+
 
 }

@@ -3,9 +3,8 @@ package practice_middle.requests;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import lesson_api_middle.models_lesson.CreateUserRequestLesson;
 import practice_middle.models.BaseModel;
-import practice_middle.models.CreateUserRequest;
+
 
 import static io.restassured.RestAssured.given;
 
