@@ -16,6 +16,9 @@
         <selenide.version>7.9.3</selenide.version>
         <rest-assured.version>4.4.0</rest-assured.version>
         <allure.version>2.29.1</allure.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <file.encoding>UTF-8</file.encoding>
     </properties>
 
     <dependencies>

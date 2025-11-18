@@ -24,9 +24,20 @@ public class EditProfilePage extends BasePage<EditProfilePage> {
     }
 
     public EditProfilePage addName(String accountName) {
-        enterName.shouldBe(visible, enabled).clear();
-        enterName.setValue(accountName);
-        enterName.shouldHave(value(accountName));
+        enterName.shouldBe(visible, enabled);
+
+        // Ввод с повтором пока значение не установится
+        RetryUtils.retry(
+                () -> {
+                    enterName.clear();
+                    enterName.setValue(accountName);
+                    return enterName.getValue();
+                },
+                value -> accountName.equals(value),
+                5,
+                300
+        );
+
         buttonSaveChanges.click();
         return this;
     }

@@ -6,11 +6,14 @@ import com.codeborne.selenide.SelenideElement;
 import common.annotations.UserSession;
 import common.storage.SessionStorage;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import practice_middle.generator.RandomData;
 import practice_middle.models.Customer;
 import ui_middle.pages_middle.BankAlerts;
 import ui_middle.pages_middle.EditProfilePage;
 
+@Execution(ExecutionMode.SAME_THREAD)
 public class SuccessfullRenameTest extends BaseUiTestSenior {
     @Test
     @UserSession

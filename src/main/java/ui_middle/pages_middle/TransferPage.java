@@ -1,5 +1,6 @@
 package ui_middle.pages_middle;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 import practice_middle.models.AccountUserResponse;
@@ -22,16 +23,23 @@ public class TransferPage extends BasePage<TransferPage> {
         return "/transfer";
     }
 
-    public  TransferPage addTransfer  (AccountUserResponse account1,AccountUserResponse account2,
-                                       Customer customer, String amount,boolean checkBox){
-        selectAccount.selectOptionContainingText(account1.getAccountNumber());
-        recipientName.setValue(customer.getName());
-        recipientAccountNumber.setValue(account2.getAccountNumber());
-        enterAmount.setValue(amount);
-        confirmCheckBox.setSelected(checkBox);
-        buttonTransfer.click();
+    public TransferPage addTransfer(AccountUserResponse account1, AccountUserResponse account2,
+                                    Customer customer, String amount, boolean checkBox) {
+
+        selectAccount.shouldHave(Condition.visible)
+                .selectOptionContainingText(account1.getAccountNumber());
+
+        recipientName.should(Condition.visible).setValue(customer.getName());
+        recipientAccountNumber.should(Condition.visible).setValue(account2.getAccountNumber());
+        enterAmount.should(Condition.visible).setValue(amount);
+
+        confirmCheckBox.should(Condition.enabled).setSelected(checkBox);
+
+        buttonTransfer.should(Condition.enabled).click();
+
         return this;
     }
+
 
     public  TransferPage fillingInAllField  (AccountUserResponse account1,AccountUserResponse account2,
                                        Customer customer, String amount,boolean checkBox){
