@@ -1,13 +1,19 @@
 package ApiTests.transfer_test_senior;
 
 import ApiTests.BaseTest;
+import database.Condition;
+import database.DBRequest;
 import io.restassured.common.mapper.TypeRef;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import practice_api_senior.requests.skelethon.Endpoint;
 import practice_api_senior.requests.skelethon.requesters.ValidatedCrudRequester;
 import practice_api_senior.requests.steps.AdminSteps;
+import practice_api_senior.requests.steps.DataBaseSteps;
 import practice_api_senior.requests.steps.UserSteps;
+import practice_middle.dao.AccountDao;
+import practice_middle.dao.Table;
+import practice_middle.dao.TransactionDao;
 import practice_middle.models.CreateTransferRequest;
 import practice_middle.models.CreateTransferResponse;
 import practice_middle.models.CreateUserRequest;
@@ -58,12 +64,18 @@ public class SuccessTest extends BaseTest {
         BigDecimal amountDeposit = BigDecimal.valueOf(amountNumber.doubleValue());
 
 
+      TransactionDao transactionDao = DataBaseSteps.getTransactionByAccountId(accountId2);
+
         softly.assertThat(actualAmount)
                 .as("Проверка баланса после перевода")
                 .isEqualByComparingTo(amountDeposit);
         softly.assertThat(actualAmount)
                 .as("Проверка баланса с expected")
                 .isEqualByComparingTo(expected);
+        softly.assertThat(actualAmount)
+                .as("Проверка баланса в БД")
+                .isEqualByComparingTo(transactionDao.getAmount());
+
         softly.assertAll();
     }
 }

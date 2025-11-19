@@ -1,13 +1,19 @@
 package ApiTests.deposit_test_senior;
 
 import ApiTests.BaseTest;
+import database.Condition;
+import database.DBRequest;
 import io.restassured.common.mapper.TypeRef;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import practice_api_senior.requests.skelethon.Endpoint;
 import practice_api_senior.requests.skelethon.requesters.ValidatedCrudRequester;
 import practice_api_senior.requests.steps.AdminSteps;
+import practice_api_senior.requests.steps.DataBaseSteps;
 import practice_api_senior.requests.steps.UserSteps;
+import practice_middle.dao.AccountDao;
+import practice_middle.dao.Table;
+import practice_middle.dao.UserDao;
 import practice_middle.models.AccountUserResponse;
 import practice_middle.models.AddDepositUserAccountRequest;
 import practice_middle.models.CreateUserRequest;
@@ -52,6 +58,7 @@ public class SuccessTest extends BaseTest {
         Number amountNumber = (Number) transactions.get(0).getAmount();
         BigDecimal amountDeposit = BigDecimal.valueOf(amountNumber.doubleValue());
 
+     AccountDao accountDao = DataBaseSteps.getAccountByAccountNumber(accountUserResponse.getAccountNumber());
 
         softly.assertThat(actualBalance)
                 .as("Проверка баланса после депозита")
@@ -59,6 +66,8 @@ public class SuccessTest extends BaseTest {
         softly.assertThat(actualBalance)
                 .as("Проверка баланса с expected")
                 .isEqualByComparingTo(expected);
+        softly.assertThat(actualBalance).as("Проверка баланса в БД")
+                .isEqualByComparingTo(accountDao.getBalance());
         softly.assertAll();
 
     }

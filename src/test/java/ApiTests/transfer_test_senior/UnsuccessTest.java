@@ -11,7 +11,9 @@ import practice_api_senior.requests.skelethon.Endpoint;
 import practice_api_senior.requests.skelethon.requesters.CrudRequester;
 import practice_api_senior.requests.skelethon.requesters.ValidatedCrudRequester;
 import practice_api_senior.requests.steps.AdminSteps;
+import practice_api_senior.requests.steps.DataBaseSteps;
 import practice_api_senior.requests.steps.UserSteps;
+import practice_middle.dao.TransactionDao;
 import practice_middle.models.CreateTransferRequest;
 import practice_middle.models.CreateUserRequest;
 import practice_middle.models.Transaction;
@@ -53,12 +55,14 @@ public class UnsuccessTest extends BaseTest {
                         ResponseSpecs.requestReturnsOK()
                 );
         List<Transaction> transactions = requester.getList(accountId2, transactionListType);
+        TransactionDao transactionDao = DataBaseSteps.getTransactionByAccountId(accountId2);
         softly.assertThat(responseBody)
                 .as("Проверка текста ошибки")
                 .isEqualTo("Transfer amount must be at least 0.01");
         softly.assertThat(transactions)
                 .as("Проверка, что аккаунт не получил трансфер")
                 .isEmpty();
+        softly.assertThat(transactionDao.getAmount()).isZero();
         softly.assertAll();
 
     }
@@ -94,12 +98,14 @@ public class UnsuccessTest extends BaseTest {
                         ResponseSpecs.requestReturnsOK()
                 );
         List<Transaction> transactions = requester.getList(accountId2, transactionListType);
+        TransactionDao transactionDao = DataBaseSteps.getTransactionByAccountId(accountId2);
         softly.assertThat(responseBody)
                 .as("Проверка текста ошибки")
                 .isEqualTo("Transfer amount cannot exceed 10000");
         softly.assertThat(transactions)
                 .as("Проверка, что аккаунт не получил трансфер")
                 .isEmpty();
+        softly.assertThat(transactionDao.getAmount()).isZero();
         softly.assertAll();
     }
 
@@ -133,12 +139,14 @@ public class UnsuccessTest extends BaseTest {
                         ResponseSpecs.requestReturnsOK()
                 );
         List<Transaction> transactions = requester.getList(accountId2, transactionListType);
+        TransactionDao transactionDao = DataBaseSteps.getTransactionByAccountId(accountId2);
         softly.assertThat(responseBody)
                 .as("Проверка текста ошибки")
                 .isEqualTo("Invalid transfer: insufficient funds or invalid accounts");
         softly.assertThat(transactions)
                 .as("Проверка, что аккаунт не получил трансфер")
                 .isEmpty();
+        softly.assertThat(transactionDao.getAmount()).isZero();
         softly.assertAll();
 
     }

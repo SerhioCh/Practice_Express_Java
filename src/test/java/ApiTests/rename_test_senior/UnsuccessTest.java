@@ -9,6 +9,8 @@ import practice_api_senior.requests.skelethon.Endpoint;
 import practice_api_senior.requests.skelethon.requesters.CrudRequester;
 import practice_api_senior.requests.skelethon.requesters.ValidatedCrudRequester;
 import practice_api_senior.requests.steps.AdminSteps;
+import practice_api_senior.requests.steps.DataBaseSteps;
+import practice_middle.dao.UserDao;
 import practice_middle.models.CreateUserRequest;
 import practice_middle.models.Customer;
 import practice_middle.models.UpdateCustomerProfileRequest;
@@ -39,10 +41,11 @@ public class UnsuccessTest extends BaseTest {
                 Endpoint.GET_CUSTOMER_PROFILE,
                 ResponseSpecs.requestReturnsOK())
                 .get();
-
+        UserDao userDao = DataBaseSteps.getUserByUserId(customer.getId());
 
         softly.assertThat(bodyResponse).as("Проверка текста ошибки").isEqualTo("Name must contain two words with letters only");
         softly.assertThat(customer.getName()).as("Проверка, что Имя профиля не изменено").isNull();
+        softly.assertThat(userDao.getName()).isNull();
         softly.assertAll();
 
 

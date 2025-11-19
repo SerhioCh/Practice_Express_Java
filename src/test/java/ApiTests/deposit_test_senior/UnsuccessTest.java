@@ -8,7 +8,10 @@ import practice_api_senior.requests.skelethon.Endpoint;
 import practice_api_senior.requests.skelethon.requesters.CrudRequester;
 import practice_api_senior.requests.skelethon.requesters.ValidatedCrudRequester;
 import practice_api_senior.requests.steps.AdminSteps;
+import practice_api_senior.requests.steps.DataBaseSteps;
 import practice_api_senior.requests.steps.UserSteps;
+import practice_middle.dao.AccountDao;
+import practice_middle.models.AccountUserResponse;
 import practice_middle.models.AddDepositUserAccountRequest;
 import practice_middle.models.CreateUserRequest;
 import practice_middle.models.Transaction;
@@ -27,10 +30,10 @@ public class UnsuccessTest extends BaseTest {
         CreateUserRequest request = AdminSteps.createConstantUser();
         String username = request.getUsername();
         String password = request.getPassword();
-        Long accountId = UserSteps.createAccountForUser(username, password).getId();
+        AccountUserResponse account = UserSteps.createAccountForUser(username, password);
 
         AddDepositUserAccountRequest addDeposit = AddDepositUserAccountRequest.builder()
-                .id(accountId)
+                .id(account.getId())
                 .balance(new BigDecimal(balance))
                 .build();
 
@@ -46,14 +49,15 @@ public class UnsuccessTest extends BaseTest {
                         Endpoint.GET_ACCOUNT_TRANSACTIONS,
                         ResponseSpecs.requestReturnsOK()
                 );
-        List<Transaction> transactions = requester.getList(accountId, transactionListType);
-
+        List<Transaction> transactions = requester.getList(account.getId(), transactionListType);
+        AccountDao accountDao = DataBaseSteps.getAccountByAccountNumber(account.getAccountNumber());
         softly.assertThat(errorMessage)
                 .as("Проверка текста ошибка")
                 .isEqualTo(ERROR_MESSAGE);
         softly.assertThat(transactions)
                 .as("Проверка, что список транзакций пуст")
                 .isEmpty();
+        softly.assertThat(accountDao.getBalance()).isZero();
         softly.assertAll();
 
     }
