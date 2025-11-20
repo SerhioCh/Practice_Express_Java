@@ -33,8 +33,8 @@ public class UnsuccessTest extends BaseTest {
         AccountUserResponse account = UserSteps.createAccountForUser(username, password);
 
         AddDepositUserAccountRequest addDeposit = AddDepositUserAccountRequest.builder()
-                .id(account.getId())
-                .balance(new BigDecimal(balance))
+                .accountId(account.getId())
+                .amount(new BigDecimal(balance))
                 .build();
 
         String errorMessage = new CrudRequester(RequestSpecs.userAuthSpec(username, password), Endpoint.DEPOSIT,

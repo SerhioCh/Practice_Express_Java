@@ -32,8 +32,8 @@ public class SuccessTest extends BaseTest {
         long accountId = UserSteps.createAccountForUser(request.getUsername(), request.getPassword()).getId();
 
         AddDepositUserAccountRequest addDeposit = AddDepositUserAccountRequest.builder()
-                .id(accountId)
-                .balance(new BigDecimal(balance))
+                .accountId(accountId)
+                .amount(new BigDecimal(balance))
                 .build();
 
         BigDecimal expected = new BigDecimal(balance);

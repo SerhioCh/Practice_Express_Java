@@ -33,8 +33,8 @@ public class UserStepsUiSenior {
 
     public  void addDepositForAccount(long accountId, BigDecimal balance, String username, String password) {
         AddDepositUserAccountRequest addDep = AddDepositUserAccountRequest.builder()
-                .id(accountId)
-                .balance(balance)
+                .accountId(accountId)
+                .amount(balance)
                 .build();
         new CrudRequester(RequestSpecs.userAuthSpec(username, password), Endpoint.DEPOSIT, ResponseSpecs.requestReturnsOK())
                 .post(addDep);

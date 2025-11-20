@@ -29,8 +29,8 @@ public class UserSteps {
 
     public static void addDepositForAccount(long accountId, BigDecimal balance, String username, String password) {
         AddDepositUserAccountRequest addDep = AddDepositUserAccountRequest.builder()
-                .id(accountId)
-                .balance(balance)
+                .accountId(accountId)
+                .amount(balance)
                 .build();
         new CrudRequester(RequestSpecs.userAuthSpec(username, password), Endpoint.DEPOSIT, ResponseSpecs.requestReturnsOK())
                 .post(addDep);
@@ -89,5 +89,20 @@ public class UserSteps {
                 ).delete(getId);
             }
         }
+    }
+    public static TransferResponse transferWithFraudCheck(Long senderAccountId, Long receiverAccountId, BigDecimal amount, CreateUserRequest user) {
+
+            TransferRequest transferRequest = TransferRequest.builder()
+                    .senderAccountId(senderAccountId)
+                    .receiverAccountId(receiverAccountId)
+                    .amount(amount)
+                    .description("Test transfer with fraud check")
+                    .build();
+
+            return new ValidatedCrudRequester<TransferResponse>(
+                    RequestSpecs.userAuthSpec(user.getUsername(),user.getPassword()),
+                    Endpoint.TRANSFER_WITH_FRAUD_CHECK,
+                    ResponseSpecs.requestReturnsOK()).post(transferRequest);
+
     }
 }
