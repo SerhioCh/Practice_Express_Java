@@ -49,7 +49,6 @@ public class TransferWithFraudCheck extends BaseTest {
                 .build();
 
 
-        softly.assertThat(expectedResponse.getStatus()).isEqualTo("APPROVED");
         softly.assertThat(transferResponse.getAmount()).isEqualByComparingTo(expectedResponse.getAmount());
     }
 }
