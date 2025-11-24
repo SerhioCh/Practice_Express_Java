@@ -38,7 +38,7 @@ public class EditProfilePage extends BasePage<EditProfilePage> {
                 300
         );
 
-        buttonSaveChanges.click();
+        buttonSaveChanges.shouldBe(visible,enabled).click();
         return this;
     }
 
