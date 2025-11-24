@@ -3,45 +3,64 @@ name: Run tests
 on: [push, workflow_dispatch]
 
 jobs:
-  run-tests:
+  tests:
     runs-on: ubuntu-latest
 
     services:
-      nbank:
+      selenium:
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
+        options: >-
+          --shm-size=2g
+
+      backend:
         image: nobugsme/nbank:with_deletion
         ports:
           - 4111:4111
-
-      selenoid:
-        image: aerokube/selenoid:latest-release
-        ports:
-          - 4444:4444
-
-      selenoid-ui:
-        image: aerokube/selenoid-ui:latest-release
-        ports:
-          - 8080:8080
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # ---------------- UI Setup ----------------
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install UI dependencies
+        working-directory: ./NBank-UI
+        run: npm install
+
+      - name: Start UI (background)
+        working-directory: ./NBank-UI
+        run: npm start &
+
+      - name: Wait for UI
+        run: |
+          for i in {1..30}; do
+            if curl -s http://localhost:3000 > /dev/null; then
+              echo "UI is up!"
+              exit 0
+            fi
+            echo "Waiting for UI..."
+            sleep 2
+          done
+          exit 1
+
+      # ---------------- Java ----------------
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          distribution: 'corretto'
-          java-version: '17'
-
-      - name: Cache Maven repository
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          distribution: corretto
+          java-version: 17
 
       - name: Make mvnw executable
         run: chmod +x mvnw
 
       - name: Run tests
+        env:
+          uiRemote: http://localhost:4444/
+          uiBaseUrl: http://localhost:3000
         run: ./mvnw clean test
