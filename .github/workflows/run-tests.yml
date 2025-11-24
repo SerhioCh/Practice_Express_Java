@@ -11,31 +11,16 @@ jobs:
         image: nobugsme/nbank:with_deletion
         ports:
           - 4111:4111
-        options: >-
-          --health-cmd="curl -f http://localhost:4111/health || exit 1"
-          --health-interval=5s
-          --health-timeout=3s
-          --health-retries=20
 
       selenoid:
         image: aerokube/selenoid:latest-release
         ports:
           - 4444:4444
-        options: >-
-          --health-cmd="curl -f http://localhost:4444/status || exit 1"
-          --health-interval=5s
-          --health-timeout=3s
-          --health-retries=20
 
       selenoid-ui:
         image: aerokube/selenoid-ui:latest-release
         ports:
           - 8080:8080
-        options: >-
-          --health-cmd="curl -f http://localhost:8080/ || exit 1"
-          --health-interval=5s
-          --health-timeout=3s
-          --health-retries=20
 
     steps:
       - name: Checkout repository
